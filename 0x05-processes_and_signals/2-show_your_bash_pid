@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# This script displays the PID of the current Bash process.
+
+# Ignore SC2009 since we're using `ps` to list processes.
+# SC2009: Consider using pgrep or pkill instead of grepping through ps output.
+# shellcheck disable=SC2009
+ps aux | grep bash | grep -v grep
