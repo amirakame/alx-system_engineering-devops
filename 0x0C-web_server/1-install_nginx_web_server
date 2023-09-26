@@ -1,23 +1,8 @@
 #!/usr/bin/env bash
-# This script configures a new Ubuntu machine to respect the following requirements:
-# * Install nginx on the web-01 server.
-# * Nginx should be listening on port 80.
-# * When querying Nginx at its root / with a GET request, it must return a page that contains the string "Hello World!".
+# installs nginx and configures it on remote server
 
-# Install nginx
-sudo apt-get update && sudo apt-get install -y nginx
-
-# Configure nginx to listen on port 80
-sudo sed -i "s/listen 80 default_server;/listen 80;/g" /etc/nginx/sites-enabled/default
-
-# Create a simple HTML file to return when nginx is queried at its root
-sudo echo "Hello World!" > /var/www/html/index.html
-
-# Restart nginx
-sudo service nginx restart
-
-# Verify that nginx is listening on port 80
-sudo netstat -anp | grep nginx
-
-# Verify that nginx is returning the correct page when queried at its root
-curl localhost
+apt-get -y update
+apt-get -y install nginx
+ufw allow 'Nginx HTTP'
+echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+service nginx start
